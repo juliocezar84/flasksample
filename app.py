@@ -14,7 +14,7 @@ def get_db_connection():
     return conn
 
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET'])
 def main_rote():
     return "Meu backend da aula de DevOps!"
 
