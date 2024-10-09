@@ -16,7 +16,7 @@ def get_db_connection():
 
 @app.route('/', methods=['GET'])
 def main_rote():
-    return "Meu backend da aula de DevOps!"
+    return "Atualizando meu servidor Flask na aula do Mackenzie!"
 
 
 @app.route('/persons', methods=['POST'])
