@@ -1,8 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 import psycopg2
 from psycopg2.extras import RealDictCursor
+from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
 
 app = Flask(__name__)
+
+# Crie uma métrica de exemplo (contador de requisições)
+REQUEST_COUNT = Counter('http_requests_total', 'Total de requisições HTTP', ['method', 'endpoint'])
 
 def get_db_connection():
     conn = psycopg2.connect(
@@ -12,6 +16,16 @@ def get_db_connection():
         host='dpg-crmpgj5umphs739ipld0-a'
     )
     return conn
+
+# Middleware para contar requisições
+@app.before_request
+def before_request():
+    REQUEST_COUNT.labels(method=request.method, endpoint=request.path).inc()
+
+# Rota para o Prometheus coletar as métricas
+@app.route('/metrics')
+def metrics():
+    return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
 
 
 @app.route('/', methods=['GET'])
