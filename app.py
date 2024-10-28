@@ -10,10 +10,10 @@ REQUEST_COUNT = Counter('http_requests_total', 'Total de requisições HTTP', ['
 
 def get_db_connection():
     conn = psycopg2.connect(
-        dbname='teste_qthi', 
-        user='teste', 
-        password='YzxANlVWAXnecF1eARNWVuPd0gwVgOFb', 
-        host='dpg-crmpgj5umphs739ipld0-a'
+        dbname='exemplo_bd', 
+        user='exemplo_bd_user', 
+        password='QaG584pID1RtlCJJ5U0rrydFIUx9X2An', 
+        host='dpg-csfq9s0gph6c73f86nq0-a.oregon-postgres.render.com'
     )
     return conn
 
@@ -30,7 +30,18 @@ def metrics():
 
 @app.route('/', methods=['GET'])
 def main_rote():
-    return "Atualizando meu servidor Flask na aula do Mackenzie!"
+    
+    #conn = get_db_connection()
+    #cur = conn.cursor()
+    
+    #cur.execute('CREATE TABLE public.persons (id INT, first_name TEXT, last_name TEXT, email TEXT, gender TEXT);')
+
+    #conn.commit()
+    #cur.close()
+    #conn.close()
+
+
+    return "Atualizando meu servidor Flask!"
 
 
 @app.route('/persons', methods=['POST'])
